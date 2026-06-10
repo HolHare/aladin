@@ -45,3 +45,6 @@ suspend fun submitTrade(req: TradeRequest): Trade =
         header("Content-Type", "application/json")
         setBody(req)
     }.body()
+
+suspend fun fetchAssetPrice(symbol: String): Double =
+    httpClient.get("$BASE_URL/api/assets/$symbol/price").body()

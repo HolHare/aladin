@@ -19,6 +19,7 @@ data class Asset(
     val type: AssetType,
     val exchange: String,
     val currency: String,
+    val sector: String = "Unknown",
 )
 
 @Serializable

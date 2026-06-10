@@ -42,12 +42,14 @@ fun seedData() {
             }
         }
 
+        // Fallback prices used only when Yahoo Finance is unavailable.
+        // NVDA reflects post-10:1-split prices (split: June 2024).
         val prices = mapOf(
-            "AAPL" to 195.50, "MSFT" to 415.20, "GOOGL" to 175.30,
-            "AMZN" to 195.80, "NVDA" to 875.40, "META" to 520.10,
-            "JPM" to 218.60, "GS" to 510.30, "BRK.B" to 412.50,
-            "TSLA" to 172.90, "TLT" to 92.40, "AGG" to 96.80,
-            "GLD" to 231.50, "CASH" to 1.00,
+            "AAPL" to 210.00, "MSFT" to 440.00, "GOOGL" to 180.00,
+            "AMZN" to 215.00, "NVDA" to 135.00, "META" to 620.00,
+            "JPM" to 250.00, "GS" to 545.00, "BRK.B" to 455.00,
+            "TSLA" to 250.00, "TLT" to 89.00, "AGG" to 97.00,
+            "GLD" to 285.00, "CASH" to 1.00,
         )
 
         val portfolio1Id = UUID.randomUUID()
@@ -91,10 +93,10 @@ fun seedData() {
             }
         }
 
-        // Global Growth Fund
+        // Global Growth Fund — NVDA quantity/cost adjusted for 10:1 split (June 2024)
         addHolding(portfolio1Id, "AAPL", 1500.0, 148.20)
         addHolding(portfolio1Id, "MSFT", 800.0, 310.50)
-        addHolding(portfolio1Id, "NVDA", 600.0, 580.30)
+        addHolding(portfolio1Id, "NVDA", 6000.0, 58.03)
         addHolding(portfolio1Id, "META", 500.0, 390.80)
         addHolding(portfolio1Id, "AMZN", 700.0, 165.40)
         addHolding(portfolio1Id, "GOOGL", 900.0, 140.20)
@@ -132,7 +134,7 @@ fun seedData() {
             }
         }
 
-        addTrade(portfolio1Id, "NVDA", "BUY", 600.0, 580.30, 45)
+        addTrade(portfolio1Id, "NVDA", "BUY", 6000.0, 58.03, 45)
         addTrade(portfolio1Id, "META", "BUY", 500.0, 390.80, 60)
         addTrade(portfolio1Id, "TSLA", "SELL", 200.0, 245.60, 30)
         addTrade(portfolio1Id, "AAPL", "BUY", 300.0, 185.40, 15)

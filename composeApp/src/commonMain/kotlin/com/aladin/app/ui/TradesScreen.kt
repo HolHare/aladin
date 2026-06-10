@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.aladin.app.api.fetchAssetPrice
 import com.aladin.app.api.fetchAssets
 import com.aladin.app.api.fetchPortfolios
 import com.aladin.app.api.fetchTrades
@@ -155,12 +156,19 @@ private fun TradeForm(
     selectedPortfolioId: String?,
     onSubmit: (TradeRequest) -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
     var portfolioId by remember { mutableStateOf(selectedPortfolioId ?: portfolios.firstOrNull()?.id ?: "") }
     var assetId by remember { mutableStateOf(assets.firstOrNull()?.id ?: "") }
     var side by remember { mutableStateOf(TradeSide.BUY) }
     var quantity by remember { mutableStateOf("100") }
     var price by remember { mutableStateOf("") }
     var notes by remember { mutableStateOf("") }
+
+    // Fetch live price for the initially-selected asset
+    LaunchedEffect(assetId) {
+        val symbol = assets.find { it.id == assetId }?.symbol ?: return@LaunchedEffect
+        runCatching { fetchAssetPrice(symbol) }.onSuccess { price = it.fmt(2) }
+    }
 
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -207,7 +215,13 @@ private fun TradeForm(
                         nonCashAssets.take(8).forEach { a ->
                             FilterChip(
                                 selected = a.id == assetId,
-                                onClick = { assetId = a.id; price = getDefaultPrice(a.symbol) },
+                                onClick = {
+                                    assetId = a.id
+                                    scope.launch {
+                                        runCatching { fetchAssetPrice(a.symbol) }
+                                            .onSuccess { price = it.fmt(2) }
+                                    }
+                                },
                                 label = { Text(a.symbol, fontSize = 11.sp) },
                             )
                         }
@@ -255,10 +269,3 @@ private fun TradeForm(
     }
 }
 
-private fun getDefaultPrice(symbol: String): String = when (symbol) {
-    "AAPL" -> "195.50"; "MSFT" -> "415.20"; "GOOGL" -> "175.30"
-    "AMZN" -> "195.80"; "NVDA" -> "875.40"; "META" -> "520.10"
-    "JPM" -> "218.60"; "GS" -> "510.30"; "BRK.B" -> "412.50"
-    "TSLA" -> "172.90"; "TLT" -> "92.40"; "AGG" -> "96.80"
-    "GLD" -> "231.50"; else -> ""
-}
