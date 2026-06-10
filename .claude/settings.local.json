@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /home/lynden/aladin status)",
+      "Bash(java -version)",
+      "Bash(gradle --version)",
+      "Bash(gradle wrapper *)",
+      "Bash(./gradlew :server:dependencies --configuration runtimeClasspath)",
+      "Bash(./gradlew help *)",
+      "Bash(./gradlew :server:compileKotlin)",
+      "Bash(./gradlew :shared:compileKotlinJvm)",
+      "Bash(docker compose up *)",
+      "Bash(pg_isready -h localhost -p 5432)",
+      "Bash(psql -h localhost -p 5432 -U aladin -d aladin -c \"SELECT 1\")",
+      "Bash(sudo -u postgres psql -c \"\\\\du\")",
+      "Bash(sudo -u postgres psql -c \"\\\\l\")",
+      "Bash(psql -h localhost -U postgres -c \"\\\\du\")",
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(./gradlew :server:run)",
+      "Bash(curl -s http://localhost:8080/health)",
+      "Bash(curl -s http://localhost:8080/api/portfolios)",
+      "Bash(python3 -m json.tool)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
