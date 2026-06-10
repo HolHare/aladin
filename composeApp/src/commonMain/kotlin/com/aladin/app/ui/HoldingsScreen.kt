@@ -115,11 +115,11 @@ private fun HoldingRow(h: Holding) {
             Text(h.asset.name, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f))
         }
         AssetTypeBadge(h.asset.type.name, Modifier.weight(1f))
-        Text(String.format("%.0f", h.quantity), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
+        Text(h.quantity.fmt(0), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f))
-        Text(String.format("$%.2f", h.avgCost), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
+        Text("$${h.avgCost.fmt(2)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f))
-        Text(String.format("$%.2f", h.currentPrice), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
+        Text("$${h.currentPrice.fmt(2)}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f))
         Text(formatMoney(h.currentValue), fontSize = 13.sp, fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1.5f))
@@ -131,7 +131,7 @@ private fun HoldingRow(h: Holding) {
             )
             Text(formatPct(h.unrealizedPnlPct), fontSize = 11.sp, color = pnlColor(h.unrealizedPnl))
         }
-        Text(String.format("%.1f%%", h.weight), fontSize = 13.sp,
+        Text("${h.weight.fmt(1)}%", fontSize = 13.sp,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f), modifier = Modifier.weight(0.8f))
     }
 }

@@ -135,9 +135,9 @@ private fun TradeRow(trade: Trade) {
                 .background(sideColor.copy(alpha = 0.15f), RoundedCornerShape(4.dp))
                 .padding(horizontal = 6.dp, vertical = 2.dp),
         )
-        Text(String.format("%.0f", trade.quantity), fontSize = 13.sp,
+        Text(trade.quantity.fmt(0), fontSize = 13.sp,
             color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
-        Text(String.format("$%.2f", trade.price), fontSize = 13.sp,
+        Text("$${trade.price.fmt(2)}", fontSize = 13.sp,
             color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
         Text(formatMoney(trade.totalValue), fontSize = 13.sp, fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1.2f))

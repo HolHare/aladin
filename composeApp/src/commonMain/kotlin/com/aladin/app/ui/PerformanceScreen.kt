@@ -74,9 +74,9 @@ fun PerformanceScreen(portfolioId: String?) {
                     PerfMetricCard("YTD Return", formatPct(p.ytdReturn), pnlValue = p.ytdReturn, modifier = Modifier.weight(1f))
                     PerfMetricCard("1Y Return", formatPct(p.oneYearReturn), pnlValue = p.oneYearReturn, modifier = Modifier.weight(1f))
                     PerfMetricCard("Alpha", formatPct(p.alpha), pnlValue = p.alpha, modifier = Modifier.weight(1f))
-                    PerfMetricCard("Info Ratio", String.format("%.2f", p.informationRatio),
+                    PerfMetricCard("Info Ratio", p.informationRatio.fmt(2),
                         pnlValue = p.informationRatio, modifier = Modifier.weight(1f))
-                    PerfMetricCard("Tracking Error", "${String.format("%.2f", p.trackingError)}%",
+                    PerfMetricCard("Tracking Error", "${p.trackingError.fmt(2)}%",
                         pnlValue = 1.0, modifier = Modifier.weight(1f))
                 }
             }

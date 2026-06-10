@@ -68,15 +68,15 @@ fun RiskScreen(portfolioId: String?) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     RiskMetricCard("VaR 95%", formatMoney(r.var95), "Daily 1-day VaR", Color(0xFFFF9800), Modifier.weight(1f))
                     RiskMetricCard("VaR 99%", formatMoney(r.var99), "Daily 1-day VaR", Color(0xFFFF5252), Modifier.weight(1f))
-                    RiskMetricCard("Max Drawdown", "-${String.format("%.1f", r.maxDrawdown)}%", "Historical max", Color(0xFFFF5252), Modifier.weight(1f))
-                    RiskMetricCard("Volatility", "${String.format("%.1f", r.volatility)}%", "Annualized", Color(0xFFFF9800), Modifier.weight(1f))
+                    RiskMetricCard("Max Drawdown", "-${r.maxDrawdown.fmt(1)}%", "Historical max", Color(0xFFFF5252), Modifier.weight(1f))
+                    RiskMetricCard("Volatility", "${r.volatility.fmt(1)}%", "Annualized", Color(0xFFFF9800), Modifier.weight(1f))
                 }
             }
             item {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    RiskMetricCard("Sharpe Ratio", String.format("%.2f", r.sharpeRatio), "Risk-adjusted return",
+                    RiskMetricCard("Sharpe Ratio", r.sharpeRatio.fmt(2), "Risk-adjusted return",
                         if (r.sharpeRatio >= 1.0) Color(0xFF4CAF50) else Color(0xFFFF9800), Modifier.weight(1f))
-                    RiskMetricCard("Beta", String.format("%.2f", r.beta), "vs. S&P 500",
+                    RiskMetricCard("Beta", r.beta.fmt(2), "vs. S&P 500",
                         if (r.beta < 1.0) Color(0xFF4CAF50) else Color(0xFFFF9800), Modifier.weight(1f))
                     Spacer(Modifier.weight(2f))
                 }
@@ -145,7 +145,7 @@ private fun SectorExposureChart(risk: RiskMetrics) {
                         )
                     }
                     Text(
-                        text = String.format("%.1f%%", sector.weight),
+                        text = "${sector.weight.fmt(1)}%",
                         fontSize = 12.sp,
                         color = barColor,
                         modifier = Modifier.width(52.dp).padding(start = 8.dp),

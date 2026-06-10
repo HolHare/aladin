@@ -42,6 +42,6 @@ suspend fun fetchAssets(): List<Asset> =
 
 suspend fun submitTrade(req: TradeRequest): Trade =
     httpClient.post("$BASE_URL/api/trades") {
-        contentType(io.ktor.http.ContentType.Application.Json)
+        header("Content-Type", "application/json")
         setBody(req)
     }.body()

@@ -165,15 +165,15 @@ fun formatMoney(value: Double): String {
     val absVal = kotlin.math.abs(value)
     val prefix = if (value < 0) "-$" else "$"
     return when {
-        absVal >= 1_000_000_000 -> "${prefix}${String.format("%.2f", absVal / 1_000_000_000)}B"
-        absVal >= 1_000_000 -> "${prefix}${String.format("%.2f", absVal / 1_000_000)}M"
-        absVal >= 1_000 -> "${prefix}${String.format("%.1f", absVal / 1_000)}K"
-        else -> "${prefix}${String.format("%.2f", absVal)}"
+        absVal >= 1_000_000_000 -> "${prefix}${(absVal / 1_000_000_000).fmt(2)}B"
+        absVal >= 1_000_000 -> "${prefix}${(absVal / 1_000_000).fmt(2)}M"
+        absVal >= 1_000 -> "${prefix}${(absVal / 1_000).fmt(1)}K"
+        else -> "${prefix}${absVal.fmt(2)}"
     }
 }
 
 fun formatPct(value: Double): String =
-    "${if (value >= 0) "+" else ""}${String.format("%.2f", value)}%"
+    "${if (value >= 0) "+" else ""}${value.fmt(2)}%"
 
 @Composable
 fun pnlColor(value: Double): Color =
